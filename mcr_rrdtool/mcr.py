@@ -30,14 +30,12 @@ if '''fc-access.log.390020b3gi''' in last_name:
 		log = log.replace(log.split()[0],local_time)
 		log = log.split('"')[0]
 		log = re.sub(kongge, ' ', log)
-		#print log
-		#return log
 		w.write(log + '\n')
 else:
 	print "no file"
 w.close()
 count = []
-with open(ungzip_name, 'r') as f:
+with open('/root/mcr/' + ungzip_name, 'r') as f:
 	return_code = ['502', '500', '404', '403', '000']
 	log_code = []
 	lines = f.readlines()
@@ -47,7 +45,6 @@ with open(ungzip_name, 'r') as f:
 	for i in return_code:
 		result = log_code.count(i)
 		count.append(result)
-	#print count
 
 code_502 = count[0]
 code_500 = count[1]

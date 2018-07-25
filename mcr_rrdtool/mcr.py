@@ -15,14 +15,14 @@ def format_time(timestamp):
 	return time_local
 
 # 获取最新的日志.gz文件
-file_name = os.listdir('/data/proclog/log/squid/access/')
-file_name.sort(key=lambda fn:os.path.getmtime('/data/proclog/log/squid/access/' + fn))
-file_new = os.path.join('/data/proclog/log/squid/access/', file_name[-1])
+file_name = os.listdir('/squid/access/')
+file_name.sort(key=lambda fn:os.path.getmtime('/squid/access/' + fn))
+file_new = os.path.join('/squid/access/', file_name[-1])
 last_name = file_new.rpartition('/')[-1]
 ungzip_name = last_name.rpartition('.')[0]
 
 w = open('/root/mcr/' + ungzip_name, 'w+')
-if '''fc-access.log.390020b3gi''' in last_name:
+if '''xxxxx''' in last_name:
 	kongge = re.compile(r'\s+')
 	for log in gzip.open(file_new):
 		unix_time = log.split()[0]

@@ -8,24 +8,25 @@ import sys
 import gzip
 import rrdtool
 
+file_name = os.listdir('/data/proclog/log/squid/access/')
+file_name.sort(key=lambda fn:os.path.getmtime('/data/proclog/log/squid/access/' + fn))
+file_new = os.path.join('/data/proclog/log/squid/access/', file_name[-1])
+last_name = file_new.rpartition('/')[-1]
+ungzip_name = last_name.rpartition('.')[0]
+
 def format_time(timestamp):
         time_local = time.localtime(timestamp)
         time_local = time.strftime("%Y-%m-%d-%H:%M:%S", time_local)
         return time_local
 
 def format_log():
-	file_name = os.listdir('/data/proclog/log/squid/access/')
-	file_name.sort(key=lambda fn:os.path.getmtime('/data/proclog/log/squid/access/' + fn))
-	file_new = os.path.join('/data/proclog/log/squid/access/', file_name[-1])
-	last_name = file_new.rpartition('/')[-1]
-	ungzip_name = last_name.rpartition('.')[0]
 	server_host = '390020b3gi'
 	health_check = 'test.txt'
         w = open('/root/mcr/testtmp/' +  ungzip_name, 'w+')
 	if server_host in last_name:
 		kongge = re.compile(r'\s+')
 		for log in gzip.open(file_new):
-			# 过滤掉health_check
+			# 过滤掉health check log
 			if health_check in log:
 				continue
 			else:
@@ -40,6 +41,7 @@ def format_log():
 
 if __name__ == '__main__':
 	format_log()
+	count = []
 	with open('/root/mcr/testtmp/' + ungzip_name, 'r') as f:
 		return_code = ['502', '500', '404', '403', '000']
 		log_code = []
@@ -50,7 +52,6 @@ if __name__ == '__main__':
 		for i in return_code:
 			result = log_code.count(i)
 			count.append(result)
-
 		code_502 = count[0]
 		code_500 = count[1]
 		code_403 = count[2]

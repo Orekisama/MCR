@@ -15,7 +15,7 @@ rrdtool.graph("/root/mcr/png/RCM.png", "--start", "-1d",
               "DEF:000=./xls/Flow.rrd:code000:MAX",
               "LINE1:502#0000FF:Code_502",
               "LINE1:500#FF0000:Code_500",
-              "LINE1:404#215E21:Code_404",
+              "LINE1:404#FFFF00:Code_404",
               "LINE1:403#215E21:Code_403",
               "LINE1:000#00FF00:Code_000")
 

@@ -1,3 +1,0 @@
-1. create rrdtool database
-2. update the data to rrd database
-3. generate the photo
